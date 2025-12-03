@@ -6,7 +6,7 @@ jobs:
   system: 
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:22.04
+      image: ubuntu:24.04
     steps:
       - run: hostnamectl
       - run: ip -4 a
