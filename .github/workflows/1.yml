@@ -1,0 +1,10 @@
+name: CI
+on: push
+
+jobs:
+  system: 
+    runs-on: ubuntu-latest
+    steps:
+      - run: hostnamectl
+      - run: ip a -4
+      - run: who am i
