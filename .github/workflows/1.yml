@@ -9,5 +9,5 @@ jobs:
       image: debian:bookworm-slim
     steps:
       - run: lsblk
-      - run: ip -4 a
+      - run: uname -a
       - run: free -m
