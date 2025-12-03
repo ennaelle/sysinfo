@@ -32,6 +32,8 @@ jobs:
          with:
            files: |
             bin/sysinfo
+           draft: false
+           prerelease: false
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        
