@@ -7,4 +7,4 @@ jobs:
     steps:
       - run: hostnamectl
       - run: ip -4 a
-      - run: who am i
+      - run: free -m
