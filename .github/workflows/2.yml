@@ -1,6 +1,6 @@
-name: CI
+name: Compil
 on:  
-  workflow_dispatch:
+  push:
 
 jobs:
   compilationc:
@@ -8,7 +8,33 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - run: make build
+      - run: |
+          mkdir bin
+          make build
+      - uses:  actions/upload-artifact@v4
+        with: 
+          name: sysinfo-c
+          path: bin/sysinfo
+
+  upload:
+     permissions:
+       contents: read
+       packages: write
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/download-artifact@v4
+         with:
+           name: sysinfo-c
+           path: bin/sysinfo
+       - name: Create GitHub Release and upload binary
+         uses: softprops/action-gh-release@v2
+         with:
+           files: |
+            dist/mon-binaire
+         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       
+      
   lintpy: 
     runs-on: ubuntu-latest
     steps:
