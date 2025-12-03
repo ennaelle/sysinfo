@@ -10,4 +10,4 @@ jobs:
     steps:
       - run: lsblk
       - run: uname -a
-      - run: free -m
+      - run: ls -al
