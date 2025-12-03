@@ -6,8 +6,8 @@ jobs:
   system: 
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:24.04
+      image: alpine:3.22
     steps:
-      - run: hostnamectl
+      - run: lsblk
       - run: ip -4 a
       - run: free -m
