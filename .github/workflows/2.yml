@@ -26,7 +26,7 @@ jobs:
        - uses: actions/download-artifact@v4
          with:
            name: sysinfo-c
-           path: bin/sysinfo
+           path: bin
        - name: Create GitHub Release and upload binary
          uses: softprops/action-gh-release@v2
          with:
