@@ -1,0 +1,106 @@
+name: sysinfo CI
+on: push
+
+jobs:
+    C-lint-sysinfo:
+      runs-on: ubuntu-latest
+      steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+              
+            - name: sysinfo lint
+              run: |
+                echo "::group::🔍 Linting du code C"
+                if make lint; then
+                  echo "::endgroup::"
+                  echo "::notice title=✅ Lint C réussi::Le code C respecte les normes de codage"
+                else
+                  echo "::endgroup::"
+                  echo "::error title=❌ Lint échoué::Des erreurs de style ont été détectées dans le code C"
+                  exit 1
+                fi
+
+    C-compilation-sysinfo:
+        runs-on: ubuntu-latest
+        needs: C-lint-sysinfo
+        steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+              
+            - name: sysinfo compilation
+              run: |
+                echo "::warning::Début de la compilation en mode release"
+                echo "::group::🔨 Compilation du projet C"
+                
+                if make build; then
+                  echo "::endgroup::"
+                  echo "::notice title=✅ Build réussi::Compilation C terminée avec succès"
+                  
+                  # Afficher la taille du binaire
+                  if [ -f ./sysinfo ]; then
+                    SIZE=$(du -h ./sysinfo | cut -f1)
+                    echo "::notice title=Taille du binaire::Binaire généré : $SIZE"
+                  fi
+                else
+                  echo "::endgroup::"
+                  echo "::error title=❌ Compilation échouée::Erreurs de compilation détectées"
+                  exit 1
+                fi
+    
+    Py-lint-mysystem:
+        runs-on: ubuntu-latest
+        steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+              
+            - name: Python environment
+              uses: actions/setup-python@v5
+              with:
+                python-version: 3.12
+                
+            - name: lint verification
+              run: |
+                echo "::group::📦 Installation des dépendances Python"
+                pip install --quiet ifaddr psutil pylint
+                echo "Dépendances installées : ifaddr, psutil, pylint"
+                echo "::endgroup::"
+                
+                echo "::group::🔍 Analyse Pylint du script mysystem"
+                if pylint --disable=missing-docstring script/mysystem/mysystem.py; then
+                  echo "::endgroup::"
+                  echo "::notice title=✅ Lint Python réussi::Le script Python respecte les standards PEP8"
+                else
+                  SCORE=$?
+                  echo "::endgroup::"
+                  echo "::warning title=⚠️ Avertissements Pylint::Des améliorations de code sont suggérées (score: $SCORE/10)"
+                  # Ne pas échouer le job, juste avertir
+                fi
+                
+    Py-run-mysystem:
+        runs-on: ubuntu-latest
+        needs: Py-lint-mysystem   
+        steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+              
+            - name: Python environment
+              uses: actions/setup-python@v5
+              with:
+                python-version: 3.12
+                
+            - name: run script
+              run: |
+                echo "::group::📦 Installation des dépendances"
+                pip install --quiet ifaddr psutil 
+                echo "Dépendances installées : ifaddr, psutil"
+                echo "::endgroup::"
+                
+                echo "::group::🚀 Exécution du script mysystem.py"
+                if python script/mysystem/mysystem.py; then
+                  echo "::endgroup::"
+                  echo "::notice title=✅ Script exécuté::mysystem.py s'est exécuté sans erreur"
+                else
+                  echo "::endgroup::"
+                  echo "::error file=script/mysystem/mysystem.py,title=❌ Erreur d'exécution::Le script a rencontré une erreur pendant l'exécution"
+                  exit 1
+                fi
