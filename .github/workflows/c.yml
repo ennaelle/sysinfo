@@ -41,5 +41,7 @@ jobs:
            with:
               name: sysinfo-binary-${{ github.sha }}
               path: sysinfo
-         - name: sysinfo compilation
-           run: ./sysinfo
+         - name: sysinfo run
+           run: | 
+              ls -laR
+             ./sysinfo
