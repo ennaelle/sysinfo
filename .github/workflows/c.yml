@@ -42,4 +42,4 @@ jobs:
               name: sysinfo-binary-${{ github.sha }}
               path: sysinfo
          - name: sysinfo compilation
-           run: make build
+           run: ./sysinfo
