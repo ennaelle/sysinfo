@@ -1,0 +1,20 @@
+name: matrix
+on: push
+
+jobs:
+    Py-run-mysystem:
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            python:: [3.12, 3.13]
+        steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+            - name: Python environment
+              uses: actions/setup-python@v5
+              with:
+                python-version: ${{ matrix.python }}
+            - name: run script
+              run: |
+                pip install ifaddr psutil 
+                python script/mysystem/mysystem.py                
