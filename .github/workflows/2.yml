@@ -1,5 +1,7 @@
-name: Compil
-on: [push]
+name: Compilation
+on:
+  pull_request:
+    branches: main
 
 jobs:
   pytest:
@@ -12,9 +14,9 @@ jobs:
         with:
           src: "script/mysystem"
           options: "-v"
-          pip_install_command: "pip install ifaddr psutil pytest"
+          pip_install_command: "pip install ifaddr psutil pytest pytest-cov "
       - run: |
-           pytest --cov-report xml:coverage.xml
+           pytest --cov=script/mysystem --cov-report xml:coverage.xml
            ls -alR
       - name: Get Cover 
         uses: orgoro/coverage@v3.2
