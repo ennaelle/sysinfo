@@ -50,3 +50,5 @@ for adapter in ifaddr.get_adapters():
 # Mémoire
 print("\n*** Etat de la memoire vive")
 print(f'Mémoire: {psutil.virtual_memory()}')
+
+
