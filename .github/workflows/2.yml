@@ -1,4 +1,4 @@
-name: Compil
+name: Compilation
 on:
   pull_request:
     branches: main
