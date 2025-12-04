@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     name: "pytest"
     steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
       - uses: davidslusser/actions_python_pytest@v1.0.1
         with:
           src: "script/mysystem"
