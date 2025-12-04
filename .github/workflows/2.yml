@@ -12,8 +12,10 @@ jobs:
         with:
           src: "script/mysystem"
           options: "-v"
-          pip_install_command: "pip install ifaddr psutil pytest pytest-cov"
-      - run: pytest --cov-report xml:coverage.xml
+          pip_install_command: "pip install ifaddr psutil pytest"
+      - run: |
+           pytest --cov-report xml:coverage.xml
+           ls -alR
       - name: Get Cover 
         uses: orgoro/coverage@v3.2
         with:
