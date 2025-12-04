@@ -1,6 +1,5 @@
 name: sysinfo CI
 on: push
-
 jobs:
     C-lint-sysinfo:
       runs-on: ubuntu-latest
@@ -32,16 +31,15 @@ jobs:
                 subject-path: 'sysinfo'
                 
     C-run-sysinfo:
-       runs-on: ubuntu-latest
-       needs: C-compilation-sysinfo
-       steps:
-         - name: sysinfo checkout
-           uses: actions/checkout@v6
-         - uses: actions/download-artifact@v4
-           with:
-              name: sysinfo-binary-${{ github.sha }}
-              path: sysinfo
-         - name: sysinfo run
-           run: | 
-              ls -laR
-             ./sysinfo
+        runs-on: ubuntu-latest
+        needs: C-compilation-sysinfo
+        steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+            - uses: actions/download-artifact@v4
+              with:
+                name: sysinfo-binary-${{ github.sha }}
+                path: .
+            - name: sysinfo run
+              run: | 
+                ./sysinfo
