@@ -1,50 +1,12 @@
 name: Compil
-on:  
-  push:
+on: [push]
 
 jobs:
-  compilationc:
+  pytest:
     runs-on: ubuntu-latest
+    name: "pytest"
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - run: |
-          mkdir bin
-          make build
-      - uses:  actions/upload-artifact@v4
-        with: 
-          name: sysinfo-c
-          path: bin/sysinfo
-
-  upload:
-     needs: compilationc
-     permissions:
-       contents: write
-       packages: write
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/download-artifact@v4
-         with:
-           name: sysinfo-c
-           path: bin
-       - name: Create GitHub Release and upload binary
-         uses: softprops/action-gh-release@v2
-         with:
-           files: |
-            bin/sysinfo
-           draft: false
-           prerelease: false
-         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       
-      
-  lintpy: 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4      
-      - uses: actions/setup-python@v5
+      - uses: davidslusser/actions_python_pytest@v1.0.1
         with:
-          python-version: '3.13'
-      - run: pip install ifaddr psutil pylint
-      - run: pylint --disable=missing-docstring script/mysystem/mysystem.py
+          src: "script/mysystem"
+          options: "-v"
