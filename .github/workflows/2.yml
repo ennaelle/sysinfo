@@ -4,6 +4,8 @@ on: [push]
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     name: "pytest"
     steps:
       - uses: actions/checkout@v5
