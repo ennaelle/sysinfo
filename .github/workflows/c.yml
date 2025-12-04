@@ -1,0 +1,45 @@
+name: sysinfo CI
+on: push
+
+jobs:
+    C-lint-sysinfo:
+      runs-on: ubuntu-latest
+      steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+            - name: sysinfo lint
+              run: make lint
+              
+    C-compilation-sysinfo:
+        permissions:
+          id-token: write    # Requis pour signer
+          contents: read
+          attestations: write
+        runs-on: ubuntu-latest
+        needs: C-lint-sysinfo
+        steps:
+            - name: sysinfo checkout
+              uses: actions/checkout@v6
+            - name: sysinfo compilation
+              run: make build
+            - uses: actions/upload-artifact@v4
+              with:
+                name: ${{ github.job }}-${{ github.sha }}		
+                path: sysinfo
+            - name: Generate attestation
+              uses: actions/attest-build-provenance@v1
+              with:
+                subject-path: 'sysinfo'
+                
+    C-run-sysinfo:
+       runs-on: ubuntu-latest
+       needs: C-compilation-sysinfo
+       steps:
+         - name: sysinfo checkout
+           uses: actions/checkout@v6
+         - uses: actions/download-artifact@v4
+           with:
+              name: ${{ github.job }}-${{ github.sha }}
+              path: sysinfo
+         - name: sysinfo compilation
+           run: make build
