@@ -24,7 +24,7 @@ jobs:
               run: make build
             - uses: actions/upload-artifact@v4
               with:
-                name: ${{ github.job }}-${{ github.sha }}		
+                name: sysinfo-binary-${{ github.sha }}		
                 path: sysinfo
             - name: Generate attestation
               uses: actions/attest-build-provenance@v1
@@ -39,7 +39,7 @@ jobs:
            uses: actions/checkout@v6
          - uses: actions/download-artifact@v4
            with:
-              name: ${{ github.job }}-${{ github.sha }}
+              name: sysinfo-binary-${{ github.sha }}
               path: sysinfo
          - name: sysinfo compilation
            run: make build
