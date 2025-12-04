@@ -12,4 +12,13 @@ jobs:
         with:
           src: "script/mysystem"
           options: "-v"
-          pip_install_command: "pip install ifaddr psutil pytest"
+          pip_install_command: "pip install ifaddr psutil pytest pytest-cov"
+      - run: |
+            coverage run -m pytest
+            coverage report
+            coverage xml
+      - name: Get Cover 
+        uses: orgoro/coverage@v3.2
+        with:
+          coverageFile: coverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
