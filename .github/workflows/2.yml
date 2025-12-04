@@ -12,4 +12,4 @@ jobs:
         with:
           src: "script/mysystem"
           options: "-v"
-          pip_install_command: "pip install ifaddr psutil"
+          pip_install_command: "pip install ifaddr psutil pytest"
