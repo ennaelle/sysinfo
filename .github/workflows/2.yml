@@ -16,7 +16,7 @@ jobs:
         with:
           src: "script/mysystem"
           options: "-v"
-          pip_install_command: "pip install ifaddr psutil pytest"
+          pip_install_command: "pip install ifaddr psutil pytest pytest-cov "
       - run: |
            pytest --cov-report xml:coverage.xml
            ls -alR
