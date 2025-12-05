@@ -23,7 +23,7 @@ def is_supported_os(system):
     print(f'Unsupported system: {system}')
     return False
 
-print("DESCRIPTION DE LA MACHINE\n")
+print("DESCRIPTION  DE LA MACHINE\n")
 
 # Architecture
 print(f'Architecture: {platform.architecture()[0]}')
