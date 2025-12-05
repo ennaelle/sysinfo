@@ -15,7 +15,7 @@ Setup CI/CD pipeline for sysinfo project
 
 `make run`
 
-### mysystem (Python)
+### mysystem 
 **Python script dependancies installation**
 
 `pip install ifaddr`  
