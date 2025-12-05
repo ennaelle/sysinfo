@@ -1,4 +1,4 @@
-name: sysinfo CI
+name: exercie cicd
 on: 
   push:
     branches:
