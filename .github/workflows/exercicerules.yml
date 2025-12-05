@@ -17,7 +17,10 @@ jobs:
               run: make lint
               
     C-compilation-sysinfo:
-        if: startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/tags/v')
+        if: |
+          always() &&
+          (needs.C-lint-sysinfo.result == 'success' || needs.C-lint-sysinfo.result == 'skipped') &&
+          (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/tags/v'))
         runs-on: ubuntu-latest
         permissions:
           id-token: write
