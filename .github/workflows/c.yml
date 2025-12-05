@@ -42,4 +42,5 @@ jobs:
                 path: .
             - name: sysinfo run
               run: | 
+                chmod +x sysinfo
                 ./sysinfo
