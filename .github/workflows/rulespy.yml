@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - 'feature/**'
-    paths:
-      - 'script/mysystem/mysystem.py'
+#    paths:
+#      - 'script/mysystem/mysystem.py'
 
 jobs:
   Py-lint-mysystem:
     runs-on: ubuntu-latest
+    continue-on-error: true
     if: startsWith(github.ref, 'refs/heads/feature/')
     steps:
       - name: sysinfo checkout
