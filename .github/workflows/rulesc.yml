@@ -6,7 +6,6 @@ on:
       - 'feature/**'
     paths:
       - 'src/sysinfo.c'
-      - 'script/mysystem/mysystem.py'
     tags:
       - 'v*.*.*'
 
@@ -35,37 +34,6 @@ jobs:
         with:
           name: sysinfo-binary
           path: ./sysinfo
-
-  Py-lint-mysystem:
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/feature/')
-    steps:
-      - name: sysinfo checkout
-        uses: actions/checkout@v6
-      - name: Python environment
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-      - name: lint verification
-        run: |
-          pip install ifaddr psutil pylint
-          pylint --disable=missing-docstring script/mysystem/mysystem.py
-
-  Py-run-mysystem:
-    runs-on: ubuntu-latest
-    needs: Py-lint-mysystem
-    if: startsWith(github.ref, 'refs/heads/feature/')
-    steps:
-      - name: sysinfo checkout
-        uses: actions/checkout@v6
-      - name: Python environment
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-      - name: run script
-        run: |
-          pip install ifaddr psutil 
-          python script/mysystem/mysystem.py
 
   deploy:
     runs-on: ubuntu-latest
