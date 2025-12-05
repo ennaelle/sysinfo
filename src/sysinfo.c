@@ -5,7 +5,7 @@
 #include <sys/sysinfo.h>
 
 void get_ip() {
-    printf("Adresse IP locale :\n");
+    printf("Adresse IP locale   :\n");
     system("hostname -I | awk '{print $1}'");
 }
 
