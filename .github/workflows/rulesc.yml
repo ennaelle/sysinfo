@@ -1,4 +1,4 @@
-name: sysinfo CI
+name: rulesc
 
 on:
   push:
