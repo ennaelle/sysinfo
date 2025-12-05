@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - 'feature/**'
-    paths:
-      - 'src/sysinfo.c'
     tags:
       - 'v*.*.*'
 
