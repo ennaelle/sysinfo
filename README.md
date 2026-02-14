@@ -1,6 +1,6 @@
 # Gitlab-ci training
 
-Setup CI/CD pipeline for sysinfo project
+Setup CI/CD pipeline for sysinfo project    
 
 ### sysinfo (C)
 **C code compilation**

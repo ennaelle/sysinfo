@@ -26,7 +26,7 @@ def is_supported_os(system):
 print("DESCRIPTION DE LA MACHINE\n")
 
 # Architecture
-print(f'Architecture: {platform.architecture()[0]}')
+print(f'Architecture : {platform.architecture()[0]}')
 
 # Machine
 print(f'Machine: {platform.machine()}')
